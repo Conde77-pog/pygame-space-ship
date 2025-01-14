@@ -9,7 +9,7 @@ from Button import Button
 class Game:
     def __init__(self):
         pygame.init()
-        self.coins = 200
+        self.coins = 0
         self.screen = pygame.display.set_mode((640, 800))
         self.bullet_speed = 5
         self.running = True
