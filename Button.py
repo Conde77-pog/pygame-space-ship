@@ -86,6 +86,7 @@ class Button:
                     if self.max == False:
                         if self.cost <= self.game.coins:
                             self.game.coins -= self.cost
+                            self.cost = int(self.cost * 1.5) 
                             self.game.sheelds.append(Sheld(self.game,(10,10),1,None))
                             self.upgrade_number += 1
                             if self.upgrade_number >= 15:
