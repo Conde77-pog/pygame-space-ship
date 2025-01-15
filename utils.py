@@ -12,9 +12,12 @@ def calculate_vector(end_pos, start_pos, speed):
     dx, dy = dx / distance * speed, dy / distance * speed
     return (dx, dy)
 
-def draw_from_list(enemys,screen):
-    for enemy in enemys:
-        pygame.draw.rect(screen, enemy.color, enemy.rect)
+def draw_from_list(draw_objects,screen):
+    for object in draw_objects:
+        if object.texture == None:
+            pygame.draw.rect(screen, object.color, object.rect)
+        else:
+            screen.blit(object.angle_texture, object.rect)
 
 def detect_collision(bullet,enemy):
     if bullet.rect.colliderect(enemy.rect):
@@ -30,3 +33,5 @@ def spawn_in_circle(center,game):
     pos_y = (math.sin(n) * radius) + center[1]
     
     return(pos_x,pos_y)
+
+

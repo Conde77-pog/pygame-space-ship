@@ -1,7 +1,8 @@
 import pygame
+from Sheld import Sheld
 
 class Button:
-    def __init__(self, game, size, pos, color, tag):
+    def __init__(self, game, size, pos, color, tag,cost):
         self.font = pygame.font.Font(None, 20)
         self.game = game
         self.size = size
@@ -9,8 +10,9 @@ class Button:
         self.rect = pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
         self.color = color
         self.tag = tag 
-        self.cost = 10
+        self.cost = cost
         self.text = tag
+        self.upgrade_number = 1
         self.max = False
         self.mouse_pos = pygame.mouse.get_pos()
         self.hover_color = (min(color[0] + 50, 255), 
@@ -75,7 +77,18 @@ class Button:
                             self.game.coins -= self.cost
                             self.game.shooting_area += 5
                             self.cost = int(self.cost * 1.5)
-                            if self.game.shooting_area >= 275:
+                            self.upgrade_number += 1
+                            if self.upgrade_number >= 25:
+                                    self.text = 'MAX'
+                                    self.color = (255,0,0)
+                                    self.max = True
+                elif self.tag == 'sheeld':
+                    if self.max == False:
+                        if self.cost <= self.game.coins:
+                            self.game.coins -= self.cost
+                            self.game.sheelds.append(Sheld(self.game,(10,10),1,None))
+                            self.upgrade_number += 1
+                            if self.upgrade_number >= 15:
                                     self.text = 'MAX'
                                     self.color = (255,0,0)
                                     self.max = True

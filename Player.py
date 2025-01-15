@@ -41,9 +41,8 @@ class Player:
             self.corrent_angle = self.calculate_angle(closest_enemy.pos)
             self.rotated_texture = pygame.transform.rotate(self.texture, self.corrent_angle)
             self.rect = self.rotated_texture.get_rect(center=self.rect.center)
-            self.game.screen.blit(self.rotated_texture, self.rect)
-        else:
-            self.game.screen.blit(self.rotated_texture, self.rect)
+        self.game.screen.blit(self.rotated_texture, self.rect)
+
 
     def get_closest_enemy(self, enemys):
         near_enemy = float('inf')
@@ -68,7 +67,8 @@ class Player:
     
     def shoot_bullets(self, enemys):
         closest_enemy = self.get_closest_enemy(enemys)
-        
+        shoot_sound = pygame.mixer.Sound(r"sound\snare-space-shot-80932.mp3")
         if closest_enemy:
+            shoot_sound.play()
             bullet_velocity = calculate_vector(closest_enemy.pos, self.pos, 5)
-            self.game.bullets.append(Bullet((5, 5), self.pos, (255, 255, 255), self.game, self.game, bullet_velocity))
+            self.game.bullets.append(Bullet((5, 5), self.pos, (255, 255, 255), self.game,pygame.image.load(r"sprites\Bullet.png").convert_alpha(), bullet_velocity))
